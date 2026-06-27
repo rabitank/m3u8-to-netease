@@ -18,14 +18,23 @@
 
 ## 安装
 
+### 前置要求
+
+- **Python** 3.10+
+- **Node.js** 18+（[下载](https://nodejs.org)）
+- **Git**（克隆仓库用）
+
+### 步骤
+
 ```bash
-# 要求：Python 3.10+、Node.js 18+
 git clone https://github.com/rabitank/m3u8-to-netease.git
 cd m3u8-to-netease
 pip install -r requirements.txt
 ```
 
-首次运行会自动执行 `npm install` 安装 Node.js 依赖。
+首次运行时会自动执行 `npm install` 安装 Node.js 依赖（`NeteaseCloudMusicApi`），无需手动操作。
+
+> `requirements.txt` 仅含 `requests` 一个三方库，其余为标准库。
 
 ## 使用
 

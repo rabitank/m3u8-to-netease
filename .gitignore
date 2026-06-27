@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 
+# Node.js
+node_modules/
+
 # Virtual environment
 venv/
 .venv/
@@ -14,5 +17,9 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+
+# User playlist files
+*.m3u8
+!test_playlist.m3u8
 
 # Cookie / session (存储在 ~/.m3u8-to-netease-cookie.json，不在仓库内)

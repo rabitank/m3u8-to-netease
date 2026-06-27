@@ -11,10 +11,16 @@ def similarity(a: str, b: str) -> float:
     return SequenceMatcher(None, a.lower(), b.lower()).ratio()
 
 
+def _get_artists(song: dict) -> list[str]:
+    """从 API 搜索结果中提取歌手名列表，兼容 ar / artists 字段。"""
+    ar = song.get("ar") or song.get("artists", [])
+    return [a.get("name", "") for a in ar if a.get("name")]
+
+
 def _format_song(song: dict) -> str:
     """从 API 搜索结果中提取 "歌手 - 歌名"。"""
     name = song.get("name", "")
-    artists = "/".join(ar.get("name", "") for ar in song.get("ar", []))
+    artists = "/".join(_get_artists(song))
     return f"{artists} - {name}"
 
 
@@ -38,13 +44,12 @@ def match_song(
     if not search_results:
         return None
 
-    query = f"{artist} {title}"
     best_song: Optional[dict] = None
     best_score = 0.0
 
     for song in search_results:
         song_name = song.get("name", "")
-        song_artists = "/".join(ar.get("name", "") for ar in song.get("ar", []))
+        song_artists = "/".join(_get_artists(song))
 
         # 歌名相似度 (权重 0.6) + 歌手相似度 (权重 0.4)
         title_sim = similarity(title, song_name)
